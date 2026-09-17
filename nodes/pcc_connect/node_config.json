@@ -1,0 +1,104 @@
+{
+  "guid": "",
+  "workflow_guid": "",
+  "node_type": "source",
+  "node_type_id": "LKEHR_PCC_CONNECT",
+  "interval": true,
+  "node_name": "PCC Connect",
+  "description": "Obtains a PointClickCare access token on a timer and reads the organization's facilities as a liveness check, pushing a status message downstream. With two-legged OAuth there is nothing to persist: the token is short-lived and can be re-obtained at will, so it is held in memory only.",
+  "config": [
+    {
+      "label": "Interval",
+      "value": 900000,
+      "field_type": "number",
+      "description": "How often, in milliseconds, to re-check the connection. 900000 is fifteen minutes. The token is cached in memory and only re-fetched when it nears expiry, so this costs little."
+    },
+    {
+      "label": "OAuth Mode",
+      "value": "2-legged",
+      "field_type": "list",
+      "description": "2-legged authenticates the application with client_credentials and needs nobody to sign in, which suits an unattended feed. 3-legged authenticates a person and carries their privileges. The two grants live on different hosts with different transport requirements, so this setting also picks the default URLs below.",
+      "list_options": [
+        "2-legged",
+        "3-legged"
+      ]
+    },
+    {
+      "label": "Client ID",
+      "value": "",
+      "field_type": "string",
+      "description": "PointClickCare application Client ID (the Customer Key). Left blank on purpose."
+    },
+    {
+      "label": "Client Secret",
+      "value": "",
+      "field_type": "password",
+      "description": "PointClickCare application Client Secret (the Customer Secret). Stored encrypted."
+    },
+    {
+      "label": "Organization UUID",
+      "value": "",
+      "field_type": "string",
+      "description": "Optional. PointClickCare returns the organization with the token, so this is normally discovered rather than configured. Set it only to pin a specific organization."
+    },
+    {
+      "label": "Client Certificate File",
+      "value": "",
+      "field_type": "string",
+      "description": "Path to the client certificate, relative to the Linkiir working directory. REQUIRED for 2-legged: connect2 enforces mutual TLS and rejects a request without one. Must be a certificate issued for client authentication; a self-signed one is refused."
+    },
+    {
+      "label": "Client Key File",
+      "value": "",
+      "field_type": "string",
+      "description": "Path to the private key for the client certificate. Must be set together with the certificate, or the handshake fails with a misleading error."
+    },
+    {
+      "label": "CA File",
+      "value": "",
+      "field_type": "string",
+      "description": "Optional trust anchor for verifying PointClickCare. Leave blank to use the system store."
+    },
+    {
+      "label": "Redirect URI",
+      "value": "",
+      "field_type": "string",
+      "description": "3-legged only. Where PointClickCare sends the browser after sign-in. Must match the portal registration exactly and must be https."
+    },
+    {
+      "label": "Auth Base URL",
+      "value": "",
+      "field_type": "string",
+      "description": "Leave blank to follow OAuth Mode: connect2 for 2-legged, connect for 3-legged. Pairing a grant with the wrong host is the most common first-connection failure."
+    },
+    {
+      "label": "API Base URL",
+      "value": "",
+      "field_type": "string",
+      "description": "Leave blank to follow OAuth Mode. Set only to pin a different API version or a proxy."
+    },
+    {
+      "label": "Request Timeout",
+      "value": 20,
+      "field_type": "number",
+      "description": "Seconds to wait for a PointClickCare response."
+    },
+    {
+      "label": "Verify TLS",
+      "value": true,
+      "field_type": "bool",
+      "description": "Verify PointClickCare's certificate. Leave on."
+    },
+    {
+      "label": "Live Mode",
+      "value": false,
+      "field_type": "bool",
+      "description": "When off, requests are prepared but never sent, and calls report themselves as simulated. Lets an imported adapter be inspected before it touches a real tenant."
+    }
+  ],
+  "library_deps": {
+    "pcc_api": "1.0.0"
+  },
+  "config_version": 1,
+  "version": "1.0.0"
+}

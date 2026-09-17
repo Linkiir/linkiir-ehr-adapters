@@ -1,0 +1,9 @@
+{
+  "format": "linkiir.catalog",
+  "format_version": 1,
+  "id": "lkehr",
+  "name": "Linkiir EHR Adapters",
+  "publisher": "Linkiir Inc",
+  "description": "Catalog of EHR, EMR and practice management adapters over proprietary APIs, plus openEHR",
+  "min_grid_version": ""
+}

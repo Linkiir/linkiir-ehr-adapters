@@ -1,0 +1,5 @@
+{
+  "name": "pcc_api",
+  "description": "PointClickCare API connectivity for the native Linkiir scripting API. Defaults to two-legged OAuth (client_credentials) over mutual TLS on connect2, which authenticates the application and needs no person to sign in, so it suits an unattended feed. The three-legged authorization-code grant is implemented as well and can be enabled by configuration when a deployment needs a signing user's privileges. Exposes connect, authenticated get and post to any path, and thin facility and patient helpers for proving a connection. Every call returns result or nil plus a classified error, and nothing raises.",
+  "version": "1.0.0"
+}
