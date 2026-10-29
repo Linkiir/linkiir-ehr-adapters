@@ -95,5 +95,116 @@
     "pcc_api": "1.0.0"
   },
   "config_version": 1,
-  "version": "1.0.0"
+  "version": "1.0.1",
+  "template_origin": {
+    "catalog": "linkiir-ehr-adapters",
+    "template_id": "group:linkiir-ehr-adapters/pcc_request",
+    "commit": "e047585fc97bc86be93002d02678b7fddf5f55ac",
+    "version": "1.0.0",
+    "linked": false,
+    "files": [
+      "main.lua",
+      "pcc_api/pcc_api.lua",
+      "pcc_api/pcc_api_config.lua",
+      "pcc_api/pcc_api_http.lua",
+      "pcc_api/pcc_api_oauth.lua"
+    ],
+    "field_defs": [
+      {
+        "label": "OAuth Mode",
+        "field_type": "list",
+        "description": "2-legged authenticates the application with client_credentials and needs nobody to sign in, which suits an unattended feed. 3-legged authenticates a person and carries their privileges. The two grants live on different hosts with different transport requirements, so this setting also picks the default URLs below.",
+        "list_options": [
+          "2-legged",
+          "3-legged"
+        ],
+        "depends_on": null
+      },
+      {
+        "label": "Client ID",
+        "field_type": "string",
+        "description": "PointClickCare application Client ID (the Customer Key). Left blank on purpose.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Client Secret",
+        "field_type": "password",
+        "description": "PointClickCare application Client Secret (the Customer Secret). Stored encrypted.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Organization UUID",
+        "field_type": "string",
+        "description": "Optional. PointClickCare returns the organization with the token, so this is normally discovered rather than configured. Set it only to pin a specific organization.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Client Certificate File",
+        "field_type": "string",
+        "description": "Path to the client certificate, relative to the Linkiir working directory. REQUIRED for 2-legged: connect2 enforces mutual TLS and rejects a request without one. Must be a certificate issued for client authentication; a self-signed one is refused.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Client Key File",
+        "field_type": "string",
+        "description": "Path to the private key for the client certificate. Must be set together with the certificate, or the handshake fails with a misleading error.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "CA File",
+        "field_type": "string",
+        "description": "Optional trust anchor for verifying PointClickCare. Leave blank to use the system store.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Redirect URI",
+        "field_type": "string",
+        "description": "3-legged only. Where PointClickCare sends the browser after sign-in. Must match the portal registration exactly and must be https.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Auth Base URL",
+        "field_type": "string",
+        "description": "Leave blank to follow OAuth Mode: connect2 for 2-legged, connect for 3-legged. Pairing a grant with the wrong host is the most common first-connection failure.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "API Base URL",
+        "field_type": "string",
+        "description": "Leave blank to follow OAuth Mode. Set only to pin a different API version or a proxy.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Request Timeout",
+        "field_type": "number",
+        "description": "Seconds to wait for a PointClickCare response.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Verify TLS",
+        "field_type": "bool",
+        "description": "Verify PointClickCare's certificate. Leave on.",
+        "list_options": null,
+        "depends_on": null
+      },
+      {
+        "label": "Live Mode",
+        "field_type": "bool",
+        "description": "When off, requests are prepared but never sent, and calls report themselves as simulated. Lets an imported adapter be inspected before it touches a real tenant.",
+        "list_options": null,
+        "depends_on": null
+      }
+    ]
+  },
+  "min_grid_version": "1.2.0"
 }
